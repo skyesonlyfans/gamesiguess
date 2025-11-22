@@ -17,6 +17,7 @@ const StoryBuilder = () => {
   const [players, setPlayers] = useState([]);
   const [gamePhase, setGamePhase] = useState('waiting');
   const [showQR, setShowQR] = useState(false);
+  const [isHost, setIsHost] = useState(false);
 
   const genres = [
     { id: 'fantasy', name: '⚔️ Fantasy', starter: 'In a realm where magic flows like rivers...' },
@@ -74,6 +75,7 @@ const StoryBuilder = () => {
   const createRoom = async () => {
     const code = generateRoomCode();
     setRoomCode(code);
+    setIsHost(true);
     const selectedGenre = genres.find(g => g.id === genre);
     const initialStory = [{ text: selectedGenre.starter, author: 'Story', votes: 0 }];
     
@@ -97,6 +99,7 @@ const StoryBuilder = () => {
         const newPlayer = { name: playerName, id: Date.now() };
         currentPlayers.push(newPlayer);
         
+        setIsHost(false);
         await window.storage.set(`players:${roomCode}`, JSON.stringify(currentPlayers), true);
         setPlayers(currentPlayers);
         setMode('game');
@@ -194,11 +197,11 @@ const StoryBuilder = () => {
                 <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#4ecdc4' }}>{roomCode}</div>
               </div>
               <div>
-                <div style={{ fontSize: '1.2rem', opacity: 0.7' }}>Players</div>
+                <div style={{ fontSize: '1.2rem', opacity: 0.7 }}>Players</div>
                 <div style={{ fontSize: '2.5rem', fontWeight: '800' }}>{players.length} <Users size={32} style={{ display: 'inline', verticalAlign: 'middle' }} /></div>
               </div>
               <div>
-                <div style={{ fontSize: '1.2rem', opacity: 0.7' }}>Phase</div>
+                <div style={{ fontSize: '1.2rem', opacity: 0.7 }}>Phase</div>
                 <div style={{ fontSize: '2.5rem', fontWeight: '800', color: votingPhase ? '#ff6b6b' : '#4ecdc4' }}>
                   {votingPhase ? 'VOTING' : 'WRITING'}
                 </div>
@@ -235,7 +238,7 @@ const StoryBuilder = () => {
                   <div key={i} style={{ background: 'rgba(255,255,255,0.1)', borderRadius: '15px', padding: '30px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                       <div style={{ fontSize: '1.5rem', marginBottom: '10px' }}>{p.text}</div>
-                      <div style={{ fontSize: '1rem', opacity: 0.6' }}>by {p.author}</div>
+                      <div style={{ fontSize: '1rem', opacity: 0.6 }}>by {p.author}</div>
                     </div>
                     <div style={{ fontSize: '3rem', fontWeight: '800', color: '#4ecdc4' }}>{p.votes || 0} votes</div>
                   </div>
@@ -306,9 +309,19 @@ const StoryBuilder = () => {
             <button
               onClick={joinRoom}
               disabled={!playerName || !roomCode}
-              style={{ width: '100%', padding: '18px', borderRadius: '12px', border: 'none', background: '#4ecdc4', color: 'white', fontSize: '1.2rem', fontWeight: '700', cursor: (playerName && roomCode) ? 'pointer' : 'not-allowed', opacity: (playerName && roomCode) ? 1 : 0.5 }}
+              style={{ width: '100%', padding: '18px', borderRadius: '12px', border: 'none', background: '#4ecdc4', color: 'white', fontSize: '1.2rem', fontWeight: '700', cursor: (playerName && roomCode) ? 'pointer' : 'not-allowed', opacity: (playerName && roomCode) ? 1 : 0.5, marginBottom: '20px' }}
             >
               Join Story
+            </button>
+
+            <div style={{ textAlign: 'center', margin: '20px 0', color: '#999' }}>or</div>
+
+            <button
+              onClick={() => setDisplayMode(true)}
+              style={{ width: '100%', padding: '18px', borderRadius: '12px', border: '2px solid #764ba2', background: 'white', color: '#764ba2', fontSize: '1.2rem', fontWeight: '700', cursor: 'pointer' }}
+            >
+              <Tv size={24} style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+              Launch TV Display Mode
             </button>
           </div>
         </div>
