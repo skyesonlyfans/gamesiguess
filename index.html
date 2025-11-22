@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GamesIGuess by Skye</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeInDown 0.8s ease;
+}
+
+.header h1 {
+  font-size: 4rem;
+  color: white;
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin-bottom: 10px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.header .by {
+  font-size: 1.5rem;
+  color: rgba(255,255,255,0.9);
+  font-weight: 300;
+}
+
+.header .heart {
+  color: #ff6b9d;
+  display: inline-block;
+  animation: heartbeat 1.5s ease infinite;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  animation: fadeInUp 0.8s ease 0.2s backwards;
+}
+
+.game-card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 20px;
+  padding: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.game-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.game-card:hover::before {
+  opacity: 1;
+}
+
+.game-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.game-card h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.game-card p {
+  color: #666;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.game-card .features {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.feature-tag {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.coming-soon {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.coming-soon::after {
+  content: 'COMING SOON';
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #ff6b9d;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.coming-soon:hover {
+  transform: none;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  10%, 30% {
+    transform: scale(1.2);
+  }
+  20%, 40% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2.5rem;
+  }
+  .header .by {
+    font-size: 1.2rem;
+  }
+  .games-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>GamesIGuess</h1>
+    <div class="by">by Skye <span class="heart">♥</span></div>
+  </div>
+  
+  <div class="games-grid">
+    <div class="game-card" onclick="window.location.href='games/story-builder.html'">
+      <span class="game-icon">📖</span>
+      <h2>Story Builder</h2>
+      <p>Create collaborative stories with friends! Take turns adding sentences, vote on story directions, and watch tales unfold together.</p>
+      <div class="features">
+        <span class="feature-tag">Multiplayer</span>
+        <span class="feature-tag">Creative</span>
+        <span class="feature-tag">Voting</span>
+        <span class="feature-tag">TV Mode</span>
+      </div>
+    </div>
+
+    <div class="game-card coming-soon">
+      <span class="game-icon">🎨</span>
+      <h2>Pixel Canvas</h2>
+      <p>Draw together in real-time on a shared canvas. See everyone's cursors and create amazing collaborative art.</p>
+      <div class="features">
+        <span class="feature-tag">Multiplayer</span>
+        <span class="feature-tag">Art</span>
+        <span class="feature-tag">Real-time</span>
+      </div>
+    </div>
+
+    <div class="game-card coming-soon">
+      <span class="game-icon">🐍</span>
+      <h2>Snake Arena</h2>
+      <p>Classic snake game with a multiplayer twist. Compete against friends in a battle royale arena!</p>
+      <div class="features">
+        <span class="feature-tag">Action</span>
+        <span class="feature-tag">Competitive</span>
+        <span class="feature-tag">Leaderboard</span>
+      </div>
+    </div>
+
+    <div class="game-card coming-soon">
+      <span class="game-icon">❓</span>
+      <h2>Trivia Clash</h2>
+      <p>Test your knowledge in fast-paced trivia battles. Answer quickly to climb the leaderboard!</p>
+      <div class="features">
+        <span class="feature-tag">Quiz</span>
+        <span class="feature-tag">Speed</span>
+        <span class="feature-tag">Educational</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
